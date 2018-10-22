@@ -1,0 +1,17 @@
+{
+  "name": "react-splitz",
+  "version": "1.0.0",
+  "description": "A/B Testing library for React projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ike Peters",
+  "license": "ISC",
+  "devDependencies": {
+    "react": "^16.5.2"
+  },
+  "peerDependencies": {
+    "react": "16.x"
+  }
+}
