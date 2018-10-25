@@ -51,7 +51,7 @@ class TestContainer extends Component {
   }
 
   // We can update the context by using and change what active experiments
-  // are running with this function that is accessible to any `ExperimentContext.Consumer` component
+  // are running with this function that is accessible to any `withTest` wrapped component
   updateExperiments(updatedExperiments, callback) {
     const invalidUpdates = getInvalidUpdates(
       this.state.exps,

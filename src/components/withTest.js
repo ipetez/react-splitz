@@ -11,6 +11,7 @@ export default function withTest(WrappedComponent, mapExperimentsToProps) {
       super(props);
       this.wrappedComponent = React.createRef();
     }
+
     render() {
       return (
         <ExperimentContext.Consumer>
