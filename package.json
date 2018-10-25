@@ -2,16 +2,46 @@
   "name": "react-splitz",
   "version": "1.0.0",
   "description": "A/B Testing library for React projects",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-dev": "NODE_ENV=development webpack",
+    "build-prod": "NODE_ENV=production webpack",
+    "build": "npm run build-prod && npm run build-dev",
+    "format": "prettier --trailing-comma es5 --single-quote --write 'src/**/*.js'",
+    "lint": "echo Linting code... && eslint ."
   },
   "author": "Ike Peters",
   "license": "ISC",
   "devDependencies": {
-    "react": "^16.5.2"
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "eslint": "^5.7.0",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0",
+    "prettier": "1.14.3",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "webpack": "^4.22.0",
+    "webpack-cli": "^3.1.2"
   },
   "peerDependencies": {
     "react": "16.x"
-  }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ]
+  },
+  "dependencies": {}
 }
