@@ -7,12 +7,9 @@ import { ExperimentContext } from '../index';
 // Uses React's context API to achieve this
 export default function withTest(WrappedComponent, mapExperimentsToProps) {
   class TestWrapper extends Component {
-    constructor(props) {
-      super(props);
-      this.wrappedComponent = React.createRef();
-    }
-
     render() {
+      const { forwardRef, ...rest } = this.props;
+
       return (
         <ExperimentContext.Consumer>
           {expState => {
@@ -27,9 +24,9 @@ export default function withTest(WrappedComponent, mapExperimentsToProps) {
             return (
               <WrappedComponent
                 {...subscribedExperiments}
-                {...this.props}
+                {...rest}
+                ref={forwardRef}
                 updateExperiments={updateExperiments}
-                ref={this.wrappedComponent}
               />
             );
           }}
@@ -38,5 +35,7 @@ export default function withTest(WrappedComponent, mapExperimentsToProps) {
     }
   }
 
-  return TestWrapper;
+  return React.forwardRef((props, ref) => {
+    return <TestWrapper {...props} forwardRef={ref} />;
+  });
 }
