@@ -90,6 +90,7 @@ export function generateWeighedList(list, weights) {
   return weightedList;
 }
 
+// Check to make sure that the experiments being set are currently running experiments
 export function getInvalidUpdates(activeExps, updatedExps) {
   const invalidUpdates = [];
 

@@ -16,8 +16,13 @@ class TestContainer extends Component {
   }
 
   getChosenVariants() {
-    const { experiments } = this.props;
-    let { getCookie, setCookie, forcedExperiments, disableAll } = this.props;
+    const {
+      experiments,
+      forcedExperiments,
+      disableAll,
+      getExperiments,
+    } = this.props;
+    let { getCookie, setCookie } = this.props;
 
     if (inBrowser()) {
       getCookie = cookie.get;
@@ -46,6 +51,10 @@ class TestContainer extends Component {
     });
 
     const { chosenVariants } = ExperimentInfo;
+
+    if (typeof getExperiments === 'function') {
+      getExperiments(chosenVariants);
+    }
 
     return chosenVariants;
   }
