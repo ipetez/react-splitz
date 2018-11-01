@@ -102,6 +102,7 @@ TestContainer.propTypes = {
   setCookie: PropTypes.func,
   forcedExperiments: PropTypes.object,
   disableAll: PropTypes.bool,
+  getExperiments: PropTypes.func,
 };
 
 export default TestContainer;
