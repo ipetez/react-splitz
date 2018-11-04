@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { inBrowser, cookie, getInvalidUpdates } from '../util';
+import { inBrowser, cookie, getInvalidUpdates, warning } from '../util';
 import { ExperimentContext } from '../index';
 import initializeExperiments from '../initialize';
+import { STATE_COOKIE } from './constants';
 
 // Sets all active experiments on the context
 class TestContainer extends Component {
@@ -50,6 +51,13 @@ class TestContainer extends Component {
   // We can update the context by using and change what active experiments
   // are running with this function that is accessible to any `withTest` wrapped component
   updateExperiments(updatedExperiments, callback) {
+    if (!inBrowser()) {
+      warning(
+        'updateExperiments() can only be called in the browser. This is a no-op. Please check the code where you are calling this function.'
+      );
+      return;
+    }
+
     const invalidUpdates = getInvalidUpdates(
       this.state.exps,
       updatedExperiments
@@ -59,12 +67,15 @@ class TestContainer extends Component {
     if (invalidUpdates.length) {
       return;
     }
+
+    const newExpState = {
+      ...this.state.exps,
+      ...updatedExperiments,
+    };
+
     this.setState(
       {
-        exps: {
-          ...this.state.exps,
-          ...updatedExperiments,
-        },
+        exps: newExpState,
       },
       () => {
         if (typeof callback === 'function') {
@@ -72,6 +83,9 @@ class TestContainer extends Component {
         }
       }
     );
+
+    // Set new cookie state
+    cookie.set(STATE_COOKIE, newExpState);
   }
 
   render() {
