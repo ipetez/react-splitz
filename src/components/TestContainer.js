@@ -22,24 +22,12 @@ class TestContainer extends Component {
       disableAll,
       getExperiments,
     } = this.props;
+
     let { getCookie, setCookie } = this.props;
 
     if (inBrowser()) {
       getCookie = cookie.get;
       setCookie = cookie.set;
-    } else if (
-      typeof getCookie !== 'function' ||
-      typeof setCookie !== 'function'
-    ) {
-      throw new Error(
-        'Both `getCookie` & `setCookie` function props must be provided when rendering components on the server.'
-      );
-    }
-
-    if (!Array.isArray(experiments)) {
-      throw new Error(
-        'The `experiments` prop must be an array and provided to `TestContainer` in order to enable experiments.'
-      );
     }
 
     const ExperimentInfo = initializeExperiments({
