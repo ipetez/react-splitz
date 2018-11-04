@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { inBrowser, cookie, getInvalidUpdates, warning } from '../util';
 import { ExperimentContext } from '../index';
 import initializeExperiments from '../initialize';
-import { STATE_COOKIE } from './constants';
+import { STATE_COOKIE } from '../constants';
 
 // Sets all active experiments on the context
 class TestContainer extends Component {
@@ -85,7 +85,7 @@ class TestContainer extends Component {
     );
 
     // Set new cookie state
-    cookie.set(STATE_COOKIE, newExpState);
+    cookie.set(STATE_COOKIE, JSON.stringify(newExpState));
   }
 
   render() {
