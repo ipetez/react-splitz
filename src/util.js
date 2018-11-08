@@ -127,3 +127,12 @@ export function generateChosenExperiment({
     variants,
   };
 }
+
+export function pickVariant(variants) {
+  // Apply probability weights to variants if they are provided
+  variants = applyWeightsToVariants(variants);
+
+  const chosenVariantIndex = randomIntBetween(0, variants.length - 1);
+
+  return variants[chosenVariantIndex];
+}

@@ -1,10 +1,9 @@
 import React from 'react';
 import { STATE_COOKIE } from './constants';
 import {
-  randomIntBetween,
-  applyWeightsToVariants,
   getVariantByName,
   generateChosenExperiment,
+  pickVariant,
 } from './util';
 
 // Create context with default values here and make sure the argument passed has the same shape
@@ -61,19 +60,7 @@ export default function initializeExperiments({
         chosenVariantName = forcedExperimentValue;
         chosenVariant = forcedVariant;
       } else if (!existingVariantName || !chosenVariant) {
-        // If an experiment is not currently set in the browser, or if the value of the chosen variant is
-        // not one that currently exists in the config, then set/override the value. Otherwise, continue.
-        let variantOptions;
-
-        // Apply probability weights to variants if they are provided
-        variantOptions = applyWeightsToVariants(variants);
-
-        const chosenVariantIndex = randomIntBetween(
-          0,
-          variantOptions.length - 1
-        );
-
-        chosenVariant = variantOptions[chosenVariantIndex];
+        chosenVariant = pickVariant(variants);
         chosenVariantName = chosenVariant.name;
       }
       // Add experiment and chosen variant to final experimentStateCookie object
