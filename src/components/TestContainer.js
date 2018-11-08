@@ -39,13 +39,13 @@ class TestContainer extends Component {
       disableAll,
     });
 
-    const { chosenVariants } = ExperimentInfo;
+    const { chosenExperiments } = ExperimentInfo;
 
     if (typeof getExperiments === 'function') {
-      getExperiments(chosenVariants);
+      getExperiments(chosenExperiments);
     }
 
-    return chosenVariants;
+    return chosenExperiments;
   }
 
   // We can update the context by using and change what active experiments

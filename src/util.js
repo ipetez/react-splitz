@@ -6,8 +6,11 @@ export function addExperimentsToProps(state, mapExperimentsToProps) {
   Object.keys(mapExperimentsToProps).forEach(propName => {
     const experimentName = mapExperimentsToProps[propName];
 
-    if (state[experimentName]) {
-      subscribedExperiments[propName] = state[experimentName];
+    const runningExperiment = state[experimentName];
+    if (runningExperiment) {
+      subscribedExperiments[propName] = {
+        variant: runningExperiment.chosenVariantName,
+      };
     }
   });
 
@@ -76,14 +79,15 @@ export function randomIntBetween(min = 0, max = 1) {
 }
 
 // Add weighted probability to items in an array
-export function generateWeighedList(list, weights) {
+export function applyWeightsToVariants(list) {
   const weightedList = [];
 
-  weights.forEach((weight, i) => {
-    const multiples = weight * 10;
+  list.forEach(variant => {
+    const { weight } = variant;
+    const multiples = weight ? weight * 10 : 1;
 
     for (let j = 0; j < multiples; j++) {
-      weightedList.push(list[i]);
+      weightedList.push(variant);
     }
   });
 
@@ -104,4 +108,22 @@ export function getInvalidUpdates(activeExps, updatedExps) {
   }
 
   return invalidUpdates;
+}
+
+export function getVariantByName(variants, name) {
+  return variants.filter(variant => {
+    return variant.name === name;
+  })[0];
+}
+
+export function generateChosenExperiment({
+  variants,
+  chosenVariantName,
+  name,
+}) {
+  return {
+    name,
+    chosenVariantName,
+    variants,
+  };
 }
