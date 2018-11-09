@@ -95,19 +95,30 @@ export function applyWeightsToVariants(list) {
 }
 
 // Check to make sure that the experiments being set are currently running experiments
-export function getInvalidUpdates(activeExps, updatedExps) {
-  const invalidUpdates = [];
-
-  for (const [experiment] of Object.entries(updatedExps)) {
-    if (typeof activeExps[experiment] === 'undefined') {
-      invalidUpdates.push(experiment);
+export function filterValidUpdates(activeExps, updatedExps) {
+  const validExps = {};
+  for (const [experimentName, variantName] of Object.entries(updatedExps)) {
+    console.log(`[${experimentName}, ${variantName}]`);
+    if (typeof activeExps[experimentName] === 'undefined') {
       warning(
-        `Experiment "${experiment}" is not a currently running experiment and therefore cannot be updated. Check your input in the 'updateExperiments function to make sure you don't have a typo`
+        `Experiment "${experimentName}" is not a currently running experiment and therefore cannot be updated. Check your input in the 'updateExperiments function to make sure you don't have a typo.`
       );
+    } else if (
+      !getVariantByName(activeExps[experimentName].variants, variantName)
+    ) {
+      warning(
+        `Variant "${variantName}" is not defined in experiment "${experimentName}".  Please check updateExperiments function for any typos.`
+      );
+    } else {
+      validExps[experimentName] = generateChosenExperiment({
+        name: experimentName,
+        chosenVariantName: variantName,
+        variants: activeExps[experimentName].variants,
+      });
     }
   }
 
-  return invalidUpdates;
+  return validExps;
 }
 
 export function getVariantByName(variants, name) {
@@ -135,4 +146,18 @@ export function pickVariant(variants) {
   const chosenVariantIndex = randomIntBetween(0, variants.length - 1);
 
   return variants[chosenVariantIndex];
+}
+
+// The experimentStateCookie object should have minimal info due to cookie size constraints.
+// The object keys should be the experiment name and the value should be the variant name.
+export function generateCookieFromState(chosenExperiments) {
+  const cookieState = {};
+
+  for (const [experimentName, { chosenVariantName }] of Object.entries(
+    chosenExperiments
+  )) {
+    cookieState[experimentName] = chosenVariantName;
+  }
+
+  return cookieState;
 }

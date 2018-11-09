@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { inBrowser, cookie, getInvalidUpdates, warning } from '../util';
+import {
+  inBrowser,
+  cookie,
+  filterValidUpdates,
+  warning,
+  generateCookieFromState,
+} from '../util';
 import { ExperimentContext } from '../index';
 import initializeExperiments from '../initialize';
 import { STATE_COOKIE } from '../constants';
@@ -58,19 +64,14 @@ class TestContainer extends Component {
       return;
     }
 
-    const invalidUpdates = getInvalidUpdates(
+    const validUpdates = filterValidUpdates(
       this.state.exps,
       updatedExperiments
     );
 
-    // Skip updates if invalid experiment keys are found
-    if (invalidUpdates.length) {
-      return;
-    }
-
     const newExpState = {
       ...this.state.exps,
-      ...updatedExperiments,
+      ...validUpdates,
     };
 
     this.setState(
@@ -84,8 +85,10 @@ class TestContainer extends Component {
       }
     );
 
+    console.log('==> newExpState', newExpState);
+    const cookieState = generateCookieFromState(newExpState);
     // Set new cookie state
-    cookie.set(STATE_COOKIE, JSON.stringify(newExpState));
+    cookie.set(STATE_COOKIE, JSON.stringify(cookieState));
   }
 
   render() {

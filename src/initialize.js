@@ -4,6 +4,7 @@ import {
   getVariantByName,
   generateChosenExperiment,
   pickVariant,
+  generateCookieFromState,
 } from './util';
 
 // Create context with default values here and make sure the argument passed has the same shape
@@ -35,10 +36,6 @@ export default function initializeExperiments({
     );
   }
 
-  // The experimentStateCookie object should have minimal info due to cookie size constraints.
-  // The object keys should be the experiment name and the value should be the variant name.
-  const experimentStateCookie = {};
-
   // This object will serve as the current state for all running experiments that will be filtered and
   // consumed by components within the application
   const chosenExperiments = {};
@@ -63,8 +60,8 @@ export default function initializeExperiments({
         chosenVariant = pickVariant(variants);
         chosenVariantName = chosenVariant.name;
       }
-      // Add experiment and chosen variant to final experimentStateCookie object
-      experimentStateCookie[name] = chosenVariantName;
+
+      // Add all relevant info of experiment and chosen variant to experiment state
       chosenExperiments[name] = generateChosenExperiment({
         name,
         chosenVariantName: chosenVariant.name,
@@ -72,12 +69,12 @@ export default function initializeExperiments({
       });
     });
   }
-  console.log('==> experimentStateCookie', experimentStateCookie);
-  console.log('==> chosenExperiments', chosenExperiments);
+
+  const experimentStateCookie = generateCookieFromState(chosenExperiments);
 
   setCookie(STATE_COOKIE, JSON.stringify(experimentStateCookie));
 
-  // Here we are returning experimentStateCookie with all selected/active experiment variants
+  // Here we are returning chosenExperi with all selected/active experiment variants
   return {
     chosenExperiments,
   };
