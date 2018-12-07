@@ -11,6 +11,9 @@
     "multivariate"
   ],
   "main": "dist/index.js",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "build-modules": "npm install",
     "test": "jest",
@@ -24,6 +27,8 @@
   },
   "author": "Ike Peters",
   "license": "MIT",
+  "homepage": "https://github.com/ipetez/react-splitz",
+  "bugs": "https://github.com/ipetez/react-splitz/issues",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
