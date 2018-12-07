@@ -1,9 +1,18 @@
 {
   "name": "react-splitz",
   "version": "1.0.0",
-  "description": "A/B Testing library for React projects",
+  "description": "A/B & Multivariate Testing library for React projects",
+  "keywords": [
+    "react",
+    "reactjs",
+    "ab",
+    "testing",
+    "experiments",
+    "multivariate"
+  ],
   "main": "dist/index.js",
   "scripts": {
+    "build-modules": "npm install",
     "test": "jest",
     "coverage": "rimraf ./coverage && jest --coverage && open coverage/lcov-report/index.html",
     "coverage-only": "rimraf ./coverage && jest --coverage",
@@ -14,7 +23,7 @@
     "lint": "echo Linting code... && eslint ."
   },
   "author": "Ike Peters",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
@@ -55,7 +64,7 @@
     ]
   },
   "pre-push": [
-    "npm install",
+    "build-modules",
     "lint",
     "coverage-only"
   ],
