@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "coverage": "rimraf ./coverage && jest --coverage && open coverage/lcov-report/index.html",
+    "coverage-only": "rimraf ./coverage && jest --coverage",
     "build-dev": "NODE_ENV=development webpack",
     "build-prod": "NODE_ENV=production webpack",
     "build": "npm run build-prod && npm run build-dev",
@@ -29,6 +30,7 @@
     "husky": "^1.1.2",
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",
+    "pre-push": "^0.1.1",
     "prettier": "1.14.3",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
@@ -52,5 +54,10 @@
       "git add"
     ]
   },
+  "pre-push": [
+    "npm install",
+    "lint",
+    "coverage-only"
+  ],
   "dependencies": {}
 }

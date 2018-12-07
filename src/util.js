@@ -69,9 +69,6 @@ export const cookie = {
       document.cookie = [key, expires, path].join(';');
     }
   },
-  clear(name) {
-    cookie.set(name, '', -1);
-  },
 };
 
 export function randomIntBetween(min = 0, max = 1) {
@@ -98,7 +95,6 @@ export function applyWeightsToVariants(list) {
 export function filterValidUpdates(activeExps, updatedExps) {
   const validExps = {};
   for (const [experimentName, variantName] of Object.entries(updatedExps)) {
-    console.log(`[${experimentName}, ${variantName}]`);
     if (typeof activeExps[experimentName] === 'undefined') {
       warning(
         `Experiment "${experimentName}" is not a currently running experiment and therefore cannot be updated. Check your input in the 'updateExperiments function to make sure you don't have a typo.`

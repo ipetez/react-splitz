@@ -85,7 +85,6 @@ class TestContainer extends Component {
       }
     );
 
-    console.log('==> newExpState', newExpState);
     const cookieState = generateCookieFromState(newExpState);
     // Set new cookie state
     cookie.set(STATE_COOKIE, JSON.stringify(cookieState));

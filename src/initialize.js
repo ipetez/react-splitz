@@ -74,7 +74,7 @@ export default function initializeExperiments({
 
   setCookie(STATE_COOKIE, JSON.stringify(experimentStateCookie));
 
-  // Here we are returning chosenExperi with all selected/active experiment variants
+  // Here we are returning chosenExperiments with all selected/active experiment variants
   return {
     chosenExperiments,
   };

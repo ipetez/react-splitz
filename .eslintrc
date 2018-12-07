@@ -19,6 +19,7 @@
   ],
   "rules": {
     "no-console": "error",
+    "comma-dangle": ["error", "always-multiline"],
     "strict": ["error", "global"],
     "curly": "warn"
   }
