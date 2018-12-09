@@ -175,4 +175,78 @@ describe('<TestContainer />', () => {
 
     spy.mockRestore();
   });
+
+  it('should choose predictable variants when a unique identifier is provided', () => {
+    const experiment = {
+      name: 'button-size',
+      variants: [
+        { name: 'default' },
+        { name: 'small' },
+        { name: 'medium' },
+        { name: 'big' },
+      ],
+    };
+
+    const defaultWrapper = mount(
+      <TestContainer
+        experiments={[
+          {
+            ...experiment,
+            identifier: 123,
+          },
+        ]}
+      >
+        <div />
+      </TestContainer>
+    );
+    const smallWrapper = mount(
+      <TestContainer
+        experiments={[
+          {
+            ...experiment,
+            identifier: '8hg37klG3l',
+          },
+        ]}
+      >
+        <div />
+      </TestContainer>
+    );
+    const mediumWrapper = mount(
+      <TestContainer
+        experiments={[
+          {
+            ...experiment,
+            identifier: 123456,
+          },
+        ]}
+      >
+        <div />
+      </TestContainer>
+    );
+    const bigWrapper = mount(
+      <TestContainer
+        experiments={[
+          {
+            ...experiment,
+            identifier: 'test',
+          },
+        ]}
+      >
+        <div />
+      </TestContainer>
+    );
+
+    expect(defaultWrapper.state().exps['button-size'].chosenVariantName).toBe(
+      'default'
+    );
+    expect(smallWrapper.state().exps['button-size'].chosenVariantName).toBe(
+      'small'
+    );
+    expect(mediumWrapper.state().exps['button-size'].chosenVariantName).toBe(
+      'medium'
+    );
+    expect(bigWrapper.state().exps['button-size'].chosenVariantName).toBe(
+      'big'
+    );
+  });
 });

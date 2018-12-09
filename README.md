@@ -134,6 +134,20 @@ const experiments = [
 ];
 ```
 
+## User-based / Cross-device tracking
+
+You can pass the `identifier` option to an experiment to ensure that the same user is always directed to the same bucket. This should be a unique identifier like a user id, user token, etc.
+
+```js
+const experiments = [
+  {
+    name: 'download-promo',
+    variants: [{ name: 'popup' }, { name: 'button' }, { name: 'fixed' }],
+    identifier: 'lk2ds89', // User id
+  },
+];
+```
+
 ## Forcing Specific Variants
 
 This option can come in handy for situations where you want to easily test a specific variant during development or quickly switch all your user traffic to a winning variant of an experiment without having to standardize the feature in your codebase right away.

@@ -44,7 +44,7 @@ export default function initializeExperiments({
     const stateCookie = JSON.parse(getCookie(STATE_COOKIE) || '{}');
 
     // Loop over experiments and set cookies
-    experiments.forEach(({ name, variants }) => {
+    experiments.forEach(({ name, variants, identifier }) => {
       const existingVariantName = stateCookie[name];
       let chosenVariantName = existingVariantName;
       let chosenVariant = getVariantByName(variants, chosenVariantName);
@@ -56,8 +56,8 @@ export default function initializeExperiments({
       if (forcedVariant) {
         chosenVariantName = forcedExperimentValue;
         chosenVariant = forcedVariant;
-      } else if (!existingVariantName || !chosenVariant) {
-        chosenVariant = pickVariant(variants);
+      } else if (identifier || !existingVariantName || !chosenVariant) {
+        chosenVariant = pickVariant(variants, identifier);
         chosenVariantName = chosenVariant.name;
       }
 

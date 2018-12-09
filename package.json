@@ -29,6 +29,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ipetez/react-splitz",
   "bugs": "https://github.com/ipetez/react-splitz/issues",
+  "repository": "github:ipetez/react-splitz",
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
@@ -73,5 +74,7 @@
     "lint",
     "coverage-only"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "seed-random": "^2.2.0"
+  }
 }

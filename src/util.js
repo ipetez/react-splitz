@@ -1,3 +1,5 @@
+import seedRandom from 'seed-random';
+
 // Loop through the 'experiment to props' mapping and get chosen variant
 // for a given experiment with the name prop name specified.
 export function addExperimentsToProps(state, mapExperimentsToProps) {
@@ -71,8 +73,15 @@ export const cookie = {
   },
 };
 
-export function randomIntBetween(min = 0, max = 1) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+export function randomIntBetween(min = 0, max = 1, seed) {
+  let random;
+
+  // Make chosen variant predictable if seed exists
+  if (seed) {
+    random = seedRandom(seed)();
+  }
+
+  return Math.floor((random || Math.random()) * (max - min + 1)) + min;
 }
 
 // Add weighted probability to items in an array
@@ -135,11 +144,15 @@ export function generateChosenExperiment({
   };
 }
 
-export function pickVariant(variants) {
-  // Apply probability weights to variants if they are provided
-  variants = applyWeightsToVariants(variants);
+export function pickVariant(variants, identifier) {
+  // Apply probability weights to variants if they are provided and no identifier is provided
+  variants = identifier ? variants : applyWeightsToVariants(variants);
 
-  const chosenVariantIndex = randomIntBetween(0, variants.length - 1);
+  const chosenVariantIndex = randomIntBetween(
+    0,
+    variants.length - 1,
+    identifier
+  );
 
   return variants[chosenVariantIndex];
 }
