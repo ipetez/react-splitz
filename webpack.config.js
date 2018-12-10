@@ -20,8 +20,13 @@ const config = {
   output: {
     filename: outputFile,
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'commonjs',
-    library: '',
+    libraryTarget: 'umd',
+    library: 'ReactSplitz',
+  },
+  externals: {
+    // Don't bundle react or react-dom
+    react: 'umd react',
+    'react-dom': 'umd react-dom',
   },
 };
 
