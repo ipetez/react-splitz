@@ -287,11 +287,11 @@ The `compose` utility function is provided by many third-party libraries includi
 
 ## `<TestContainer />` option props
 
-`experiments` - (_Array [required]_): Running experiments. See above for examples.
-`disableAll` - (_Boolean [optional]_): Option to isable all experiments. More info here [Disable All Experiments](#disable-all-experiments).
-`forcedExperiments` - (_Object [optional]_): An object with experiment key/values as experiment name/forced variant. More info here: [Forcing specific variants](#forcing-specific-variants)
-`getCookie` - (_Function [optional]_): A function prop provided to retrieve a browser cookie. Required for server-side rendering.
-`setCookie` - (_Function [optional]_): A function prop provided to set a browser cookie. Required for server-side rendering.
+- `experiments` - (_Array [required]_): Running experiments. See above for examples.
+- `disableAll` - (_Boolean [optional]_): Option to isable all experiments. More info here [Disable All Experiments](#disable-all-experiments).
+- `forcedExperiments` - (_Object [optional]_): An object with experiment key/values as experiment name/forced variant. More info here: [Forcing specific variants](#forcing-specific-variants)
+- `getCookie` - (_Function [optional]_): A function prop provided to retrieve a browser cookie. Required for server-side rendering.
+- `setCookie` - (_Function [optional]_): A function prop provided to set a browser cookie. Required for server-side rendering.
 
 ## `withTest([mapExperimentsToProps], [options])([WrappedComponent])`
 
