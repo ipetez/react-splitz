@@ -1,9 +1,9 @@
-# React Splitz
+# React Splitz 📊📈
 
-React Splitz is an A/B and multivariate testing tool for react projects
+React Splitz is an A/B and multivariate testing tool for react applications.
 
-It enables you to set and manage persistent experiments in your app and easily subscribe and access them from any component via component props we know and love. It also offers full support for **server-side rendering**
-so you're able to use it in your **universal** web apps as well.
+Easy way to set and manage persistent experiments in your app and make careful changes to your user experiences while collecting data on the results. Subscribe and access experiments from any component via component props or hooks that we all know and love. It also offers full support for **server-side rendering**
+so you're able to use it in your **universal** web apps as well. Very performant and lightweight (~ **3.9kb** minified/gzipped).
 
 ## Installation
 
@@ -13,10 +13,22 @@ Using **npm**:
 npm install react-splitz --save
 ```
 
-or using **yarn**:
+Using **yarn**:
 
 ```bash
 yarn add react-splitz
+```
+
+or **UMD** build (`ReactSplitz` as the global variable)
+
+```bash
+// Development build
+<script src="https://unpkg.com/react-splitz@2/umd/react-splitz.development.js"></script>
+```
+
+```bash
+// Production build
+<script src="https://unpkg.com/react-splitz@2/umd/react-splitz.production.min.js"></script>
 ```
 
 ## Setup
@@ -38,7 +50,7 @@ import { TestContainer } from 'react-splitz';
 /**
  * Define your experiments in an array like this. In a real
  * application it might make more sense to move this array to a config file
- * and import it here.
+ * or retrieve it from an API and import it here.
  **/
 
 const experiments = [
@@ -113,6 +125,23 @@ const mapExperimentsToProps = {
 
 export withTest(mapExperimentsToProps)(SignupButton)
 ```
+
+## Using hooks
+
+Instead of using the `withTest` Higher Order component (HOC) you can use the `useExperiment` hook to subscribe to an experiment. Here's an example.
+
+```js
+// Import 'useExperiment' hook here
+import { useExperiment } from 'react-splitz';
+
+function MyComponent(props) {
+  const { variant } = useExperiment('signup-btn-color');
+
+  // Use variant here to decide how to markup your UI
+}
+```
+
+> **Note:** Hooks require React version 16.8 or later
 
 ## Weighted Experiments
 
