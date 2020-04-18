@@ -1,6 +1,6 @@
 {
   "name": "react-splitz",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A/B & Multivariate Testing library for React projects",
   "license": "MIT",
   "keywords": [
