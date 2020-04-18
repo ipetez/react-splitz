@@ -2,6 +2,7 @@
   "name": "react-splitz",
   "version": "2.0.2",
   "description": "A/B & Multivariate Testing library for React projects",
+  "license": "MIT",
   "keywords": [
     "react",
     "reactjs",
@@ -80,8 +81,6 @@
     "coverage-only"
   ],
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "seed-random": "^2.2.0"
   }
 }
