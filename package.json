@@ -1,6 +1,6 @@
 {
   "name": "react-splitz",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A/B & Multivariate Testing library for React projects",
   "license": "MIT",
   "keywords": [
@@ -29,7 +29,6 @@
     "lint": "echo Linting code... && eslint ."
   },
   "author": "Ike Peters",
-  "license": "MIT",
   "homepage": "https://github.com/ipetez/react-splitz",
   "bugs": "https://github.com/ipetez/react-splitz/issues",
   "repository": "github:ipetez/react-splitz",
