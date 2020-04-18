@@ -1,5 +1,6 @@
 # React Splitz 📊📈
-[![Build Status](https://travis-ci.com/ipetez/react-splitz.svg?branch=master)](https://travis-ci.org/ipetez/react-splitz) [![npm version](https://badge.fury.io/js/react-splitz.svg)](https://badge.fury.io/js/react-splitz) ![GitHub](https://img.shields.io/github/license/ipetez/react-splitz)
+
+[![Build Status](https://travis-ci.com/ipetez/react-splitz.svg?branch=master)](https://travis-ci.org/ipetez/react-splitz) [![npm version](https://badge.fury.io/js/react-splitz.svg)](https://badge.fury.io/js/react-splitz) ![David](https://img.shields.io/david/ipetez/react-splitz) ![GitHub](https://img.shields.io/github/license/ipetez/react-splitz)
 
 React Splitz is an A/B and multivariate testing tool for react applications.
 
