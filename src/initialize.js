@@ -1,18 +1,10 @@
-import React from 'react';
 import { STATE_COOKIE } from './constants';
 import {
   getVariantByName,
   generateChosenExperiment,
   pickVariant,
-  generateCookieFromState,
+  setExperimentCookieFromState,
 } from './util';
-
-// Create context with default values here and make sure the argument passed has the same shape
-// as the `value` prop passed in to the Provider component
-export const ExperimentContext = React.createContext({
-  exps: {},
-  updateExperiments: () => {},
-});
 
 // getCookie & setCookie only need to be explicitly passed in
 // for server-side rendering, unless you want to handle cookies yourself on the client.
@@ -70,9 +62,7 @@ export default function initializeExperiments({
     });
   }
 
-  const experimentStateCookie = generateCookieFromState(chosenExperiments);
-
-  setCookie(STATE_COOKIE, JSON.stringify(experimentStateCookie));
+  setExperimentCookieFromState(chosenExperiments, setCookie);
 
   // Here we are returning chosenExperiments with all selected/active experiment variants
   return {

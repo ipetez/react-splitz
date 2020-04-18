@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   inBrowser,
   cookie,
   filterValidUpdates,
   warning,
-  generateCookieFromState,
+  setExperimentCookieFromState,
 } from '../util';
-import { ExperimentContext } from '../index';
+import ExperimentContext from '../ExperimentContext';
 import initializeExperiments from '../initialize';
-import { STATE_COOKIE } from '../constants';
 
 // Sets all active experiments on the context
-class TestContainer extends Component {
+class TestContainer extends React.Component {
   constructor() {
     super(...arguments);
     this.updateExperiments = this.updateExperiments.bind(this);
@@ -85,9 +84,8 @@ class TestContainer extends Component {
       }
     );
 
-    const cookieState = generateCookieFromState(newExpState);
     // Set new cookie state
-    cookie.set(STATE_COOKIE, JSON.stringify(cookieState));
+    setExperimentCookieFromState(newExpState);
   }
 
   render() {
@@ -99,14 +97,16 @@ class TestContainer extends Component {
   }
 }
 
-TestContainer.propTypes = {
-  children: PropTypes.element.isRequired,
-  experiments: PropTypes.arrayOf(PropTypes.object),
-  getCookie: PropTypes.func,
-  setCookie: PropTypes.func,
-  forcedExperiments: PropTypes.object,
-  disableAll: PropTypes.bool,
-  getExperiments: PropTypes.func,
-};
+if (process.env.NODE_ENV !== 'production' && process.env.BUILD_ENV !== 'umd') {
+  TestContainer.propTypes = {
+    children: PropTypes.element.isRequired,
+    experiments: PropTypes.arrayOf(PropTypes.object),
+    getCookie: PropTypes.func,
+    setCookie: PropTypes.func,
+    forcedExperiments: PropTypes.object,
+    disableAll: PropTypes.bool,
+    getExperiments: PropTypes.func,
+  };
+}
 
 export default TestContainer;

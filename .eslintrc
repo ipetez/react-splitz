@@ -10,6 +10,9 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "__DEV__": true,
+  },
   "settings": {
     "react": {
       "version": "16.3"

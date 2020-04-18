@@ -1,20 +1,21 @@
 import seedRandom from 'seed-random';
+import { STATE_COOKIE } from './constants';
 
 // Loop through the 'experiment to props' mapping and get chosen variant
 // for a given experiment with the name prop name specified.
 export function addExperimentsToProps(state, mapExperimentsToProps) {
   const subscribedExperiments = {};
 
-  Object.keys(mapExperimentsToProps).forEach(propName => {
-    const experimentName = mapExperimentsToProps[propName];
-
+  for (const [propName, experimentName] of Object.entries(
+    mapExperimentsToProps
+  )) {
     const runningExperiment = state[experimentName];
     if (runningExperiment) {
       subscribedExperiments[propName] = {
         variant: runningExperiment.chosenVariantName,
       };
     }
-  });
+  }
 
   return subscribedExperiments;
 }
@@ -87,15 +88,27 @@ export function randomIntBetween(min = 0, max = 1, seed) {
 // Add weighted probability to items in an array
 export function applyWeightsToVariants(list) {
   const weightedList = [];
+  let weightCount = 0;
 
   list.forEach(variant => {
     const { weight } = variant;
-    const multiples = weight ? weight * 10 : 1;
+    let multiples = 1;
+
+    if (weight) {
+      multiples = weight * 10;
+      weightCount++;
+    }
 
     for (let j = 0; j < multiples; j++) {
       weightedList.push(variant);
     }
   });
+
+  if (weightCount > 0 && weightCount < list.length) {
+    warning(
+      'Ensure that experiments with weights applied to variants have them applied to all variants of that experiment.'
+    );
+  }
 
   return weightedList;
 }
@@ -169,4 +182,10 @@ export function generateCookieFromState(chosenExperiments) {
   }
 
   return cookieState;
+}
+
+export function setExperimentCookieFromState(exps, setCookie) {
+  setCookie = setCookie || cookie.set;
+  const cookieValue = generateCookieFromState(exps);
+  setCookie(STATE_COOKIE, JSON.stringify(cookieValue));
 }
