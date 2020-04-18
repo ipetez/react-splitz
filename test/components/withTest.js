@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import PropTypes from 'prop-types';
-import { TestContainer, withTest } from '../../src/index';
+import TestContainer from '../../src/components/TestContainer';
+import withTest from '../../src/components/withTest';
 import { experimentConfig } from '../constants';
 
 class WrappedComponent extends React.Component {
